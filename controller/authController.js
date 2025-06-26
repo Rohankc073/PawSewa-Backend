@@ -119,7 +119,7 @@ const loginUser = async (req, res) => {
                 email: user.email,
                 role: user.role
             },
-            cart : cart || {userId: user._id,items:[]}
+            // cart : cart || {userId: user._id,items:[]}
             
         });
 

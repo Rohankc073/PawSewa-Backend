@@ -4,61 +4,63 @@ const WelcomeEmail = ({ name }) => `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to myAster!</title>
+  <title>Welcome to PawSewa!</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f9f9f5;
       margin: 0;
       padding: 0;
       color: #333;
     }
     .email-container {
       max-width: 600px;
-      margin: 20px auto;
+      margin: 30px auto;
       background: #ffffff;
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #ececec;
     }
     .email-header {
-      background-color: #2A5593; /* Primary myAster color */
+      background-color: #747134;
       color: #fff;
-      padding: 20px;
+      padding: 24px;
       text-align: center;
     }
     .email-header img {
-      max-width: 150px;
+      max-width: 120px;
+      margin-bottom: 10px;
     }
     .email-body {
-      padding: 20px;
+      padding: 30px 25px;
     }
     .email-body h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      color: #2A5593;
+      font-size: 22px;
+      margin-bottom: 14px;
+      color: #747134;
     }
     .email-body p {
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.6;
+      margin: 12px 0;
     }
     .cta-button {
-      display: block;
-      width: 200px;
-      text-align: center;
-      background-color: #2A5593;
+      display: inline-block;
+      background-color: #747134;
       color: #ffffff;
       text-decoration: none;
       font-size: 16px;
-      font-weight: bold;
-      padding: 12px;
-      border-radius: 5px;
-      margin: 20px auto;
+      font-color: #ffffff;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 6px;
+      margin: 24px auto;
     }
     .email-footer {
-      background-color: #f4f4f9;
+      background-color: #f4f4f4;
       text-align: center;
-      padding: 10px;
+      padding: 16px;
       font-size: 12px;
       color: #777;
     }
@@ -67,21 +69,28 @@ const WelcomeEmail = ({ name }) => `
 <body>
   <div class="email-container">
     <div class="email-header">
-    <img src="https://drive.google.com/uc?id=1kMW_TVwMnorRllJKUvCwviDJiwfYtJfu" alt="myAster Logo" width="150">
-      <h1>Welcome to myAster!</h1>
+     <img src="https://drive.google.com/uc?export=view&id=1kt8oUmX932dZMNdlsCknHpXwIJQIdF81" alt="PawSewa Logo">
+      <h2>Welcome to PawSewa!</h2>
     </div>
     <div class="email-body">
       <h1>Dear ${name},</h1>
-      <p>We’re thrilled to welcome you to myAster your trusted platform for seamless healthcare management.</p>
-      <p>With myAster, you can book appointments, manage prescriptions, consult with doctors, and shop for medicines – all in one place!</p>
-      <p>We are committed to making healthcare accessible, convenient, and stress-free for you.</p>
-      <a href="https://myaster.com/login" class="cta-button">Get Started</a>
-      <p>If you have any questions, feel free to reach out to our support team. We’re always here to help.</p>
-      <p>Thank you for choosing myAster. We’re excited to be part of your health journey!</p>
+      <p>Welcome to PawSewa — your trusted partner for complete pet care!</p>
+      <p>With PawSewa, you can book doctor visits, adopt pets, purchase products, and even consult AI for instant pet care tips — all from one place.</p>
+      <p>We are committed to providing a seamless, stress-free, and loving experience for both pets and their owners.</p>
+      <div style="text-align: center;">
+        <a href="https://pawsewa.com/login" 
+   class="cta-button"
+   style="display:inline-block; background-color:#747134; color:#ffffff; text-decoration:none; font-size:16px; font-weight:600; padding:12px 24px; border-radius:6px;">
+  Explore PawSewa
+</a>
+
+      </div>
+      <p>If you ever need help, don’t hesitate to contact our support team. We’re always here to assist you.</p>
+      <p>Thank you for joining the PawSewa family. Let’s make tails wag together!</p>
     </div>
     <div class="email-footer">
-      <p>&copy; ${new Date().getFullYear()} myAster-HMS+E-Pharmacy. All rights reserved.</p>
-      <p>Need help? Contact us at support@myaster.com</p>
+      <p>&copy; ${new Date().getFullYear()} PawSewa. All rights reserved.</p>
+      <p>Questions? Reach out to us at support@pawsewa.com</p>
     </div>
   </div>
 </body>
