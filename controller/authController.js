@@ -34,8 +34,6 @@ const registerUser = async (req, res) => {
             return res.status(400).json({ message: "Email already registered" });
         }
 
-
-
         const user = await User.create({
             name,
             email,
@@ -44,8 +42,8 @@ const registerUser = async (req, res) => {
             role: role || "User",
         });
 
-        //Create an empty cart for the user
-        await Cart.create({userId: user._id, items: []});
+        // ✅ Create an empty cart for the new user
+        await Cart.create({ userId: user._id, items: [] });
 
         // Send registration email
         const mailOptions = {
@@ -93,7 +91,8 @@ const loginUser = async (req, res) => {
 
         const token = generateToken(user);
 
-    
+        // ✅ Fetch the user's cart
+        const cart = await Cart.findOne({ userId: user._id });
 
         // ✅ Log the response to debug issues
         console.log(" Login Response:", {
@@ -106,7 +105,6 @@ const loginUser = async (req, res) => {
                 email: user.email,
                 role: user.role
             },
-            
         });
 
         res.status(200).json({
@@ -119,8 +117,7 @@ const loginUser = async (req, res) => {
                 email: user.email,
                 role: user.role
             },
-            // cart : cart || {userId: user._id,items:[]}
-            
+            cart: cart || { userId: user._id, items: [] }
         });
 
     } catch (error) {
@@ -129,7 +126,4 @@ const loginUser = async (req, res) => {
     }
 };
 
-
-
-
-module.exports = { registerUser, loginUser};
+module.exports = { registerUser, loginUser };

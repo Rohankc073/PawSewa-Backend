@@ -19,6 +19,14 @@ app.use('/auth', require('./router/authRouter'));
 app.use('/product', require('./router/productRouter'));
 app.use('/category', require('./router/categoryRouter'));
 app.use('/ai', require('./router/aiRouter'));
+app.use('/vet',require('./router/vetRouter'))
+app.use("/appointment",require('./router/appointmentRouter'));
+app.use('/esewa', require('./router/esewaRoutes'));
+app.use('/cart', require('./router/cartRouter'));
+
+
+app.use(express.json());
+
 
 
 // Serve static uploads

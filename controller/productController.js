@@ -54,22 +54,53 @@ const addProduct = async (req, res) => {
  * ✅ Fetch all medicines (Ensure image URL is correct)
  */
 const getProducts = async (req, res) => {
-    try {
-        // ✅ Populate category name instead of just returning the ID
-        const products = await Product.find().populate("category", "name");
+  try {
+    const { category, brand, min, max, sort } = req.query;
 
-        // ✅ Ensure full image URL
-        const updatedProducts = products.map((product) => ({
-            ...product._doc,
-            image: product.image ? `http://localhost:5005/${product.image}` : null, // Full URL
-        }));
+    const query = {};
 
-        res.status(200).json(updatedProducts);
-    } catch (error) {
-        console.error("Error fetching products:", error);
-        res.status(500).json({ error: "Error fetching products" });
+    // Filter by category
+    if (category) {
+      const categoryList = category.split(",");
+      query.category = { $in: categoryList };
     }
+
+    // Filter by brand (manufacturer)
+    if (brand) {
+      const brandList = brand.split(",");
+      query.manufacturer = { $in: brandList };
+    }
+
+    // Price range
+    if (min || max) {
+      query.price = {};
+      if (min) query.price.$gte = parseFloat(min);
+      if (max) query.price.$lte = parseFloat(max);
+    }
+
+    // Sort logic
+    let sortOption = { createdAt: -1 }; // Default: latest
+    if (sort === "price-asc") sortOption = { price: 1 };
+    if (sort === "price-desc") sortOption = { price: -1 };
+
+    // Fetch filtered + sorted
+    const products = await Product.find(query)
+      .populate("category", "name")
+      .sort(sortOption);
+
+    // Return full image URL
+    const updatedProducts = products.map((product) => ({
+      ...product._doc,
+      image: product.image ? `http://localhost:5005/${product.image}` : null,
+    }));
+
+    res.status(200).json(updatedProducts);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Error fetching products" });
+  }
 };
+
 
 /** 
  * ✅ Fetch a single product by ID
@@ -77,17 +108,23 @@ const getProducts = async (req, res) => {
 const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
-        const product = await Product.findById(id);
+
+        // ✅ Populate category name
+        const product = await Product.findById(id).populate('category', 'name');
         if (!product) return res.status(404).json({ message: '❌ Product not found' });
 
         // ✅ Ensure full image URL
-        product.image = product.image ? `http://localhost:5005/${product.image}` : null;
+        const updatedProduct = {
+            ...product._doc,
+            image: product.image ? `http://localhost:5005/${product.image}` : null,
+        };
 
-        res.status(200).json(product);
+        res.status(200).json(updatedProduct);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 
 
