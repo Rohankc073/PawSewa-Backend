@@ -1,8 +1,9 @@
+require('dotenv').config(); // ✅ TOP of the file — must be first!
+
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
 const connectDB = require('./config/db');
-
+const upload = require("../backend/middleware/upload");
 
 const app = express();
 
@@ -10,7 +11,7 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors()); // ← Enable CORS
+app.use(cors());
 app.use(express.json());
 
 // Routes
@@ -19,15 +20,12 @@ app.use('/auth', require('./router/authRouter'));
 app.use('/product', require('./router/productRouter'));
 app.use('/category', require('./router/categoryRouter'));
 app.use('/ai', require('./router/aiRouter'));
-app.use('/vet',require('./router/vetRouter'))
-app.use("/appointment",require('./router/appointmentRouter'));
+app.use('/vet', require('./router/vetRouter'));
+app.use('/appointment', require('./router/appointmentRouter'));
 app.use('/esewa', require('./router/esewaRoutes'));
 app.use('/cart', require('./router/cartRouter'));
-
-
-app.use(express.json());
-
-
+app.use('/adoption', require('./router/adoptionRouter'));
+app.use('/order', require('./router/orderRouter'));
 
 // Serve static uploads
 app.use('/uploads', express.static('uploads'));
@@ -37,8 +35,8 @@ const PORT = process.env.PORT || 5000;
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log("CLIENT_URL =", process.env.CLIENT_URL); // ✅ Debug print
   });
 }
 
 module.exports = app;
-
