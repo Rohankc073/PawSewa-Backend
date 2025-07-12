@@ -260,3 +260,5 @@ const WelcomeEmail = ({ name }) => `
 `;
 
 module.exports = WelcomeEmail;
+
+//Welcome mail 
