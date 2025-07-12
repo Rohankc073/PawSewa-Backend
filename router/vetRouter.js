@@ -34,3 +34,6 @@ router.get('/:doctorId/appointments', getDoctorAppointments);
 router.patch('/appointment/:appointmentId/cancel', cancelDoctorAppointment);
 
 module.exports = router;
+
+//Vet
+//KK
