@@ -315,3 +315,5 @@ const ResetPasswordEmail = ({ email, resetLink }) => `
 `;
 
 module.exports = ResetPasswordEmail;
+
+//Reset Pass
