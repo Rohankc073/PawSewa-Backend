@@ -29,34 +29,30 @@ const addToCart = async (req, res) => {
 };
 
 // ✅ View cart with populated product details (including image)
+const mongoose = require("mongoose");
+
 const getCart = async (req, res) => {
   const { userId } = req.params;
 
-  try {
-    const cart = await Cart.findOne({ userId }).populate('items.productId');
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ success: false, message: "Invalid user ID format" });
+  }
 
+  try {
+    const cart = await Cart.findOne({ userId }); // ❌ No populate for now
     if (!cart) {
       return res.status(404).json({ success: false, message: 'Cart not found' });
     }
 
-    const detailedItems = cart.items.map(item => {
-      const product = item.productId; // ✅ declare the variable
-      return {
-        productId: product._id,
-        name: product.name,
-        price: product.price,
-        manufacturer: product.manufacturer,
-        image: product.image, // ✅ includes image
-        quantity: item.quantity
-      };
-    });
+    console.log("Cart found:", cart);
 
-    res.status(200).json({ success: true, items: detailedItems });
+    res.status(200).json({ success: true, cart });
   } catch (error) {
-    console.error("Get cart error:", error);
+    console.error("Get cart error:", error); // 🛑 This will show exact crash reason
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 
 // Remove item from cart
 const removeFromCart = async (req, res) => {
