@@ -3,7 +3,9 @@ require('dotenv').config(); // ✅ TOP of the file — must be first!
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const upload = require("../backend/middleware/upload");
+// const upload = require("../backend/middleware/upload");
+const upload = require("./middleware/upload");
+
 
 const app = express();
 
